@@ -1,35 +1,29 @@
-import React, { Component } from "react";
-import NavBar from "./components/navbar";
-import Products from "./components/products";
-import Posts from "./components/posts";
-import Home from "./components/home";
-import Dashboard from "./components/admin/dashboard";
-import ProductDetails from "./components/productDetails";
+import { Component } from "react";
+import Movies from "./components/movies";
+import { Route, Redirect, Switch } from "react-router-dom";
+import Customers from "./components/customers";
+import Rentals from "./components/rentals";
 import NotFound from "./components/notFound";
-import { Redirect, Route, Switch } from "react-router-dom";
-import "./App.css";
-
+import NavBar from "./components/navBar";
+import MovieForm from "./components/movieForm";
 class App extends Component {
+  state = {};
   render() {
     return (
-      <div>
+      <>
         <NavBar />
-        <div className="content">
+        <main className="container">
           <Switch>
-            <Route path="/products/:id" component={ProductDetails} />
-            <Route
-              path="/products"
-              render={(props) => <Products sortBy="newest" {...props} />}
-            />
-            <Route path="/posts/:year?/:month?" component={Posts} />
-            <Route path="/admin" component={Dashboard} />
-            <Redirect from="/messages" to="/posts" />
-            <Route path="/not-found" component={NotFound} />
-            <Route path="/" exact component={Home} />
+            <Route path="/movies/:id" component={MovieForm} />
+            <Route path="/movies" component={Movies}></Route>
+            <Route path="/customers" component={Customers}></Route>
+            <Route path="/rentals" component={Rentals}></Route>
+            <Route path="/not-found" component={NotFound}></Route>
+            <Redirect from="/" exact to="/movies" />
             <Redirect to="/not-found" />
           </Switch>
-        </div>
-      </div>
+        </main>
+      </>
     );
   }
 }
